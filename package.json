@@ -65,5 +65,9 @@
   ],
   "jest": {
     "preset": "@vue/cli-plugin-unit-jest"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2
   }
 }
