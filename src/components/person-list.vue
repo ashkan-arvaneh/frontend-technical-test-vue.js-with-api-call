@@ -1,43 +1,59 @@
 <template>
-  <ul class="item__wrapper" v-if="!loading">
-    <li
-      v-for="(person, index) in data.data"
-      :key="index"
-      class="item"
-      :class="{ active: index == selected, item__cover: person.cover }"
-      :style="itemStyles(index)"
-      v-on:click.stop.prevent="pickProfile(index)"
-    >
-      <h4 v-if="person.cover">List of profiles</h4>
-      <div v-else>
-        <figure class="item__image">
-          <img :src="person.avatar" :alt="'image of ' + person.first_name" />
-          <figcaption>{{ person.last_name }}</figcaption>
-        </figure>
-        <button class="item__button">
-          <span class="item__ripple"></span>
-          Details
-        </button>
-      </div>
-    </li>
-  </ul>
+  <div>
+    <ul class="item__wrapper" v-if="!loading">
+      <li
+        v-for="(person, index) in data.data"
+        :key="index"
+        class="item"
+        :class="{ active: index == selected, item__cover: person.cover }"
+        :style="itemStyles(index)"
+        v-on:click.stop.prevent="pickProfile(index, person)"
+      >
+        <h4 v-if="person.cover">List of profiles</h4>
+        <div v-else>
+          <figure class="item__image">
+            <img :src="person.avatar" :alt="'image of ' + person.first_name" />
+            <figcaption>{{ person.last_name }}</figcaption>
+          </figure>
+          <button
+            class="item__button"
+            v-on:click.stop.prevent="showDetails(person, index)"
+          >
+            <span class="item__ripple"></span>
+            Details
+          </button>
+        </div>
+      </li>
+    </ul>
+    <person-details
+      v-show="detailsVisible"
+      @close="closeDetails()"
+    ></person-details>
+  </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import personDetails from "@/components/person-details";
 export default {
-  name: "item",
-
+  name: "personList",
+  components: { personDetails },
   data() {
     return {
       selected: null,
       offset: null,
-      animationStarted: false
+      animationStarted: false,
+      detailsVisible: false
     };
   },
 
   computed: {
-    ...mapState("newReleases", ["data", "totalItems", "loading"]),
+    ...mapState("newReleases", [
+      "data",
+      "totalItems",
+      "loading",
+      "selectedPerson"
+    ]),
     colourGenerator() {
       let colours = [];
       for (let i = 0; i < this.totalItems; i++) {
@@ -49,8 +65,13 @@ export default {
   },
 
   methods: {
-    pickProfile(index) {
+    pickProfile(index, person) {
       this.selected = index;
+      const backgroundColor = this.colourGenerator[index];
+      this.$store.dispatch("newReleases/PASS_SELECTED_PERSON", {
+        person,
+        backgroundColor
+      });
     },
     itemStyles(index) {
       if (!this.animationStarted) {
@@ -79,6 +100,21 @@ export default {
     },
     updateOffset() {
       this.offset = -this.offset;
+    },
+    showDetails(person, index) {
+      this.selected = index;
+      const backgroundColor = this.colourGenerator[index];
+      this.$store
+        .dispatch("newReleases/PASS_SELECTED_PERSON", {
+          person,
+          backgroundColor
+        })
+        .then(() => {
+          this.detailsVisible = true;
+        });
+    },
+    closeDetails() {
+      this.detailsVisible = false;
     }
   },
 
