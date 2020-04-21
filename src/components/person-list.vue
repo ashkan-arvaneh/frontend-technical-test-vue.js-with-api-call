@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="item__wrapper" v-if="!loading">
+    <ul class="item__wrapper" v-if="!loading" :class="{ blur: detailsVisible }">
       <li
         v-for="(person, index) in data.data"
         :key="index"
@@ -137,8 +137,11 @@ export default {
   height: 400px;
   margin: 30px auto 0 auto;
   color: #fff;
-
+  transition: filter 0.5s;
   font-size: 1.2rem;
+  &.blur {
+    filter: blur(5px);
+  }
   .item {
     position: absolute;
     top: 0;

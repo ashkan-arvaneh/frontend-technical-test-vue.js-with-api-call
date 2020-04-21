@@ -83,6 +83,7 @@ export default {
   right: 30px;
   top: 15px;
   font-size: 4rem;
+  cursor: pointer;
 }
 .bounce-enter-active {
   animation: bounce-in 0.7s;
