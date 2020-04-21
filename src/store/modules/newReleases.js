@@ -6,7 +6,8 @@ export default {
     loading: null,
     data: [],
     totalItems: null,
-    selectedItem: {}
+    selectedPerson: {},
+    selectedBackground: ""
   },
 
   mutations: {
@@ -16,8 +17,11 @@ export default {
     SET_TOTAL(state, payload) {
       state.totalItems = payload;
     },
-    SET_SELECTED_ITEM(state, payload) {
-      state.selectedItem = payload;
+    SET_SELECTED_PERSON(state, payload) {
+      state.selectedPerson = payload;
+    },
+    SET_SELECTED_BACKGROUND(state, payload) {
+      state.selectedBackground = payload;
     },
     SET_LOADING_STATE(state, payload) {
       state.loading = payload;
@@ -40,8 +44,9 @@ export default {
         .catch(error => console.log(error))
         .finally(() => {});
     },
-    FIND_SELECTED_ITEM(index) {
-      console.log(index);
+    PASS_SELECTED_PERSON({ commit }, payload) {
+      commit("SET_SELECTED_PERSON", payload.person);
+      commit("SET_SELECTED_BACKGROUND", payload.backgroundColor);
     }
   }
 };
