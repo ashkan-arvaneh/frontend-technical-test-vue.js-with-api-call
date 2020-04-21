@@ -30,15 +30,15 @@ export default {
       return musicApi
         .getNewReleases()
         .then(data => {
-          console.log(data)
-          data.data.push({ cover: true })
-          console.log('after splice', data)
+          console.log(data);
+          data.data.push({ cover: true });
+          console.log("after splice", data);
           context.commit("SET_DATA", data);
           context.commit("SET_TOTAL", data.data.length);
           context.commit("SET_LOADING_STATE", false);
         })
         .catch(error => console.log(error))
-        .finally(() => { });
+        .finally(() => {});
     },
     FIND_SELECTED_ITEM(index) {
       console.log(index);

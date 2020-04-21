@@ -5,7 +5,6 @@
       :key="index"
       class="item"
       :class="{ active: index == selected, item__cover: person.cover }"
-      @click="selected = index"
       :style="itemStyles(index)"
       v-on:click.stop.prevent="pickProfile(index)"
     >
@@ -51,8 +50,7 @@ export default {
 
   methods: {
     pickProfile(index) {
-      this.$store.dispatch("newReleases/FIND_SELECTED_ITEM", index);
-      this.updateOffset();
+      this.selected = index;
     },
     itemStyles(index) {
       if (!this.animationStarted) {
@@ -61,15 +59,17 @@ export default {
 
       // 7 items, 3.5 - 4
       //debugger; // eslint-disable-line
-      const centerOn = this.selected
-        ? this.seleted
-        : this.totalItems / 2 - index;
+      const centerOn =
+        this.selected != null ? this.selected : Math.floor(this.totalItems / 2);
       const startIndex = centerOn - index;
-      let degrees = startIndex * Math.round(this.offset);
+      let offset = this.offset;
 
-      if (startIndex < 0) {
-        degrees = -startIndex * Math.round(this.offset);
+      let degrees = -startIndex * Math.round(offset);
+      if (this.selected != null && index > this.selected) {
+        degrees += 15;
       }
+
+      console.log("degrees", this.selected, centerOn, degrees, startIndex);
 
       return {
         transition: "all 700ms ease 0s",
