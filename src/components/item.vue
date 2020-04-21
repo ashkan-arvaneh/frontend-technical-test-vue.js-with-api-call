@@ -1,26 +1,25 @@
 <template>
-  <ul class="item__wrapper">
+  <ul class="item__wrapper" v-if="!loading">
     <li
       v-for="(person, index) in data.data"
       :key="index"
       class="item"
-      :class="{ active: index == selected }"
+      :class="{ active: index == selected, item__cover: person.cover }"
       @click="selected = index"
       :style="itemStyles(index)"
       v-on:click.stop.prevent="pickProfile(index)"
     >
-      <figure class="item__image">
-        <img :src="person.avatar" :alt="'image of ' + person.first_name" />
-        <figcaption>{{ person.last_name }}</figcaption>
-      </figure>
-      <button class="item__button">
-        <span class="item__ripple"></span>
-        Details
-      </button>
-    </li>
-    <li class="item item__cover">
-      <h4>List of profiles</h4>
-      <!-- <h5><span>We ♥ color</span></h5> -->
+      <h4 v-if="person.cover">List of profiles</h4>
+      <div v-else>
+        <figure class="item__image">
+          <img :src="person.avatar" :alt="'image of ' + person.first_name" />
+          <figcaption>{{ person.last_name }}</figcaption>
+        </figure>
+        <button class="item__button">
+          <span class="item__ripple"></span>
+          Details
+        </button>
+      </div>
     </li>
   </ul>
 </template>
@@ -32,13 +31,14 @@ export default {
 
   data() {
     return {
-      loading: true,
-      selected: null
+      selected: null,
+      offset: null,
+      animationStarted: false
     };
   },
 
   computed: {
-    ...mapState("newReleases", ["data", "totalItems"]),
+    ...mapState("newReleases", ["data", "totalItems", "loading"]),
     colourGenerator() {
       let colours = [];
       for (let i = 0; i < this.totalItems; i++) {
@@ -51,23 +51,45 @@ export default {
 
   methods: {
     pickProfile(index) {
-      if (this.activeIndex === index) {
-        this.activeIndex = null;
-      } else {
-        this.activeIndex = index;
-      }
+      this.$store.dispatch("newReleases/FIND_SELECTED_ITEM", index);
+      this.updateOffset();
     },
     itemStyles(index) {
-      const offset = 90 / this.totalItems; //90 degree
+      if (!this.animationStarted) {
+        return {};
+      }
+
+      // 7 items, 3.5 - 4
+      //debugger; // eslint-disable-line
+      const centerOn = this.selected
+        ? this.seleted
+        : this.totalItems / 2 - index;
+      const startIndex = centerOn - index;
+      let degrees = startIndex * Math.round(this.offset);
+
+      if (startIndex < 0) {
+        degrees = -startIndex * Math.round(this.offset);
+      }
+
       return {
+        transition: "all 700ms ease 0s",
         backgroundColor: this.colourGenerator[index],
-        transform: "rotate(" + -index * Math.round(offset) + "deg)"
+        transform: "rotate(" + degrees + "deg)"
       };
+    },
+    updateOffset() {
+      this.offset = -this.offset;
     }
   },
 
   created() {
-    this.$store.dispatch("newReleases/GET_LIST").then(() => {});
+    this.$store.dispatch("newReleases/GET_LIST").then(() => {
+      this.offset = 90 / this.totalItems; //90 degree
+      console.log("test");
+      setTimeout(() => {
+        this.animationStarted = true;
+      }, 500);
+    });
   }
 };
 </script>
