@@ -48,7 +48,7 @@ export default {
   },
 
   computed: {
-    ...mapState("newReleases", [
+    ...mapState("personsModule", [
       "data",
       "totalItems",
       "loading",
@@ -68,7 +68,7 @@ export default {
     pickProfile(index, person) {
       this.selected = index;
       const backgroundColor = this.colourGenerator[index];
-      this.$store.dispatch("newReleases/PASS_SELECTED_PERSON", {
+      this.$store.dispatch("personsModule/PASS_SELECTED_PERSON", {
         person,
         backgroundColor
       });
@@ -98,14 +98,11 @@ export default {
         transform: "rotate(" + degrees + "deg)"
       };
     },
-    updateOffset() {
-      this.offset = -this.offset;
-    },
     showDetails(person, index) {
       this.selected = index;
       const backgroundColor = this.colourGenerator[index];
       this.$store
-        .dispatch("newReleases/PASS_SELECTED_PERSON", {
+        .dispatch("personsModule/PASS_SELECTED_PERSON", {
           person,
           backgroundColor
         })
@@ -119,7 +116,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("newReleases/GET_LIST").then(() => {
+    this.$store.dispatch("personsModule/GET_LIST").then(() => {
       this.offset = 90 / this.totalItems; //90 degree
       console.log("test");
       setTimeout(() => {

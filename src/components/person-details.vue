@@ -29,7 +29,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapState("newReleases", ["selectedPerson", "selectedBackground"])
+    ...mapState("personsModule", ["selectedPerson", "selectedBackground"])
   }
 };
 </script>

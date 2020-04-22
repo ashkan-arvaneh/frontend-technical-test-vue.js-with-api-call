@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default {
-  getNewReleases() {
+  getpersonsModule() {
     return axios
       .get("api/users?page=2")
       .then(response => {

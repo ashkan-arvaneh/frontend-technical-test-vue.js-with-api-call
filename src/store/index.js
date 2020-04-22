@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import newReleases from "./modules/newReleases";
+import personsModule from "./modules/personsModule";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    newReleases: newReleases
+    personsModule: personsModule
   },
   strict: process.env.NODE_ENV !== "production"
 });
