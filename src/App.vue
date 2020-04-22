@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="fadeIn">
     <router-view />
   </div>
 </template>
@@ -32,5 +32,18 @@ body {
 }
 ul {
   list-style: none;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.8s;
 }
 </style>
