@@ -90,8 +90,6 @@ export default {
         degrees += 15;
       }
 
-      console.log("degrees", this.selected, centerOn, degrees, startIndex);
-
       return {
         transition: "all 700ms ease 0s",
         backgroundColor: this.colourGenerator[index],
@@ -118,7 +116,6 @@ export default {
   created() {
     this.$store.dispatch("personsModule/GET_LIST").then(() => {
       this.offset = 90 / this.totalItems; //90 degree
-      console.log("test");
       setTimeout(() => {
         this.animationStarted = true;
       }, 500);

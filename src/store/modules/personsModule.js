@@ -34,9 +34,7 @@ export default {
       return musicApi
         .getpersonsModule()
         .then(data => {
-          console.log(data);
           data.data.push({ cover: true });
-          console.log("after splice", data);
           context.commit("SET_DATA", data);
           context.commit("SET_TOTAL", data.data.length);
           context.commit("SET_LOADING_STATE", false);
