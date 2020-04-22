@@ -42,7 +42,7 @@ export default {
           context.commit("SET_LOADING_STATE", false);
         })
         .catch(error => console.log(error))
-        .finally(() => { });
+        .finally(() => {});
     },
     PASS_SELECTED_PERSON({ commit }, payload) {
       commit("SET_SELECTED_PERSON", payload.person);
