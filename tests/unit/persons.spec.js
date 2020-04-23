@@ -16,7 +16,6 @@ describe("Component", () => {
   let actions;
   let store;
   beforeEach(() => {
-
     actions = {
       GET_LIST: jest.fn(),
       PASS_SELECTED_PERSON: jest.fn()
@@ -120,19 +119,16 @@ describe("Component", () => {
     }, 1000);
   });
   test("store mutation", done => {
-    personsModule.actions = originalActions
-    personsModule.state = {
-
-    }
+    personsModule.actions = originalActions;
+    personsModule.state = {};
     const localStore = new Vuex.Store({
       modules: {
         personsModule
       }
     });
-    localStore.dispatch('personsModule/GET_LIST').then(response => {
-      
-      expect(localStore.state.personsModule.totalItems).toBe(7)
-      done()
-    })
+    localStore.dispatch("personsModule/GET_LIST").then(response => {
+      expect(localStore.state.personsModule.totalItems).toBe(7);
+      done();
+    });
   });
 });
