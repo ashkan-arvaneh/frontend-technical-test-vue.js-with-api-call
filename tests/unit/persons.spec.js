@@ -4,14 +4,19 @@ import { createLocalVue, shallowMount } from "@vue/test-utils";
 import Vuex from "vuex";
 import PersonList from "@/components/person-list";
 import personsModule from "@/store/modules/personsModule";
+import axios from "axios";
+
+axios.defaults.baseURL = "https://reqres.in/";
 const localVue = createLocalVue();
 
 localVue.use(Vuex);
+const originalActions = personsModule.actions;
 
 describe("Component", () => {
   let actions;
   let store;
   beforeEach(() => {
+
     actions = {
       GET_LIST: jest.fn(),
       PASS_SELECTED_PERSON: jest.fn()
@@ -113,5 +118,21 @@ describe("Component", () => {
       });
       done();
     }, 1000);
+  });
+  test("store mutation", done => {
+    personsModule.actions = originalActions
+    personsModule.state = {
+
+    }
+    const localStore = new Vuex.Store({
+      modules: {
+        personsModule
+      }
+    });
+    localStore.dispatch('personsModule/GET_LIST').then(response => {
+      
+      expect(localStore.state.personsModule.totalItems).toBe(7)
+      done()
+    })
   });
 });
