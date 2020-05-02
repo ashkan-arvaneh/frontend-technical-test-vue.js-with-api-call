@@ -1,5 +1,18 @@
 <template>
   <div id="app" class="fadeIn">
+    <h1>A Frontend Technical Task - VueJS</h1>
+    Public Repo:
+    <a
+      target="_blank"
+      href="https://github.com/ashkan-arvaneh/frontend-technical-test-vue.js-with-api-call"
+      >Here</a
+    >
+    <p>
+      This is a VueJS component displaying a list of items from a public API
+    </p>
+    <p>
+      The API call is made via an action in Vuex.
+    </p>
     <router-view />
   </div>
 </template>
@@ -29,6 +42,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  h1,
+  a,
+  p {
+    margin-bottom: 20px;
+  }
 }
 ul {
   list-style: none;

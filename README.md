@@ -33,4 +33,4 @@ But I think keeping things simple at this stage provides users with more fluid e
 
 3. CSS is currently quite verbose, it could be simplified but I ran out of time. Could possibly create a sass folder and move common styles, animations and page basis to that folder
 
-[**DEMO**](https://www.ashkanarvaneh.co.uk/tests/vue.js-api-test)
+[**DEMO**](https://www.ashkanarvaneh.co.uk/technical-tests/vue.js-api-test)
