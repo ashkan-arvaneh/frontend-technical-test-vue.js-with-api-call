@@ -37,6 +37,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  padding: 5rem 1rem;
+  padding: 2rem 1rem;
+  overflow: hidden;
 }
 </style>

@@ -129,7 +129,7 @@ export default {
 .item__wrapper {
   position: relative;
   width: 130px;
-  height: 400px;
+  height: 470px;
   margin: 30px auto 0 auto;
   color: #fff;
   transition: filter 0.5s;
@@ -153,9 +153,7 @@ export default {
     backface-visibility: hidden;
     padding: 10px 5px;
     transition: all 700ms ease 0s;
-    box-shadow: -1px -1px 3px rgba(0, 0, 0, 0.2),
-      12px 12px 20px rgba(0, 0, 0, 0.6),
-      inset 2px 2px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 2px 4px 6px black;
     &__image {
       img {
         border-radius: 50%;
