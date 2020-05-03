@@ -1,6 +1,11 @@
 <template>
   <div>
-    <ul class="item__wrapper" v-if="!loading" :class="{ blur: detailsVisible }">
+    <ul
+      class="item__wrapper"
+      v-if="!loading"
+      :class="{ blur: !popupClosed }"
+      v-on:click="closeDetails()"
+    >
       <li
         v-for="(person, index) in data.data"
         :key="index"
@@ -25,10 +30,7 @@
         </div>
       </li>
     </ul>
-    <person-details
-      v-show="detailsVisible"
-      @close="closeDetails()"
-    ></person-details>
+    <person-details v-show="!popupClosed"></person-details>
   </div>
 </template>
 
@@ -38,12 +40,14 @@ import personDetails from "@/components/person-details";
 export default {
   name: "personList",
   components: { personDetails },
+  props: {
+    ClosePopup: Boolean
+  },
   data() {
     return {
       selected: null,
       offset: null,
-      animationStarted: false,
-      detailsVisible: false
+      animationStarted: false
     };
   },
 
@@ -52,7 +56,8 @@ export default {
       "data",
       "totalItems",
       "loading",
-      "selectedPerson"
+      "selectedPerson",
+      "popupClosed"
     ]),
     colourGenerator() {
       let colours = [];
@@ -63,7 +68,6 @@ export default {
       return colours;
     }
   },
-
   methods: {
     pickProfile(index, person) {
       this.selected = index;
@@ -105,11 +109,8 @@ export default {
           backgroundColor
         })
         .then(() => {
-          this.detailsVisible = true;
+          this.$store.dispatch("personsModule/UPDATE_POPUP", false);
         });
-    },
-    closeDetails() {
-      this.detailsVisible = false;
     }
   },
 
@@ -127,7 +128,7 @@ export default {
 <style lang="scss" scoped>
 .item__wrapper {
   position: relative;
-  width: 150px;
+  width: 130px;
   height: 400px;
   margin: 30px auto 0 auto;
   color: #fff;

@@ -1,18 +1,5 @@
 <template>
   <div id="app" class="fadeIn">
-    <h1>A Frontend Technical Task - VueJS</h1>
-    Public Repo:
-    <a
-      target="_blank"
-      href="https://github.com/ashkan-arvaneh/frontend-technical-test-vue.js-with-api-call"
-      >Here</a
-    >
-    <p>
-      This is a VueJS component displaying a list of items from a public API
-    </p>
-    <p>
-      The API call is made via an action in Vuex.
-    </p>
     <router-view />
   </div>
 </template>
@@ -24,6 +11,13 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
 }
 :root {
   font-size: 62.5%;

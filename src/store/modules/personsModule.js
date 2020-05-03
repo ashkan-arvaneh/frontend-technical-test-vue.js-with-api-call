@@ -7,7 +7,8 @@ export default {
     data: [],
     totalItems: null,
     selectedPerson: {},
-    selectedBackground: ""
+    selectedBackground: "",
+    popupClosed: true
   },
 
   mutations: {
@@ -25,6 +26,9 @@ export default {
     },
     SET_LOADING_STATE(state, payload) {
       state.loading = payload;
+    },
+    SET_POPUP_STATE(state, payload) {
+      state.popupClosed = payload;
     }
   },
 
@@ -45,6 +49,9 @@ export default {
     PASS_SELECTED_PERSON({ commit }, payload) {
       commit("SET_SELECTED_PERSON", payload.person);
       commit("SET_SELECTED_BACKGROUND", payload.backgroundColor);
+    },
+    UPDATE_POPUP({ commit }, payload) {
+      commit("SET_POPUP_STATE", payload);
     }
   }
 };
