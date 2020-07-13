@@ -134,6 +134,7 @@ export default {
   color: #fff;
   transition: filter 0.5s;
   font-size: 1.2rem;
+  will-change: filter;
   &.blur {
     filter: blur(5px);
   }

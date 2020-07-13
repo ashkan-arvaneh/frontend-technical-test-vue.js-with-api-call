@@ -62,6 +62,7 @@ export default {
   background-image: url(../assets/fabric.png);
   color: #fff;
   box-shadow: 0px -5px 9px -4px rgba(0, 0, 0, 0.57);
+  will-change: transform;
   &__image-section {
     grid-area: 1 / 1 / 2 / 2;
     display: flex;
